@@ -7,7 +7,7 @@ Created on Mon Jan  3 17:36:31 2022
 """
 import os
 import re
-import fitz
+import fitz  # pip install PyMuPDF
 
 COURSE = "AlgebreLinaire"
 PDF = ".pdf"
