@@ -60,24 +60,24 @@ def copy_lectures(tmp_dir, course_name):
 
     for dir_index, lecture in enumerate(os.listdir(course_name)):
         relations.append([])
-        lecture_path = course_name + "\\" + lecture
+        lecture_path = course_name + "/" + lecture
         if lecture == "config.json":
             with open(lecture_path, 'r', encoding='utf8') as file:
                 config = json.load(file)
         if not os.path.isdir(lecture_path):
             continue
         for file in os.listdir(lecture_path):
-            file_path = course_name + "\\" + lecture + "\\" + file
+            file_path = course_name + "/" + lecture + "/" + file
             if (not os.path.isfile(file_path)
                     or file.split(".")[-1] not in COPY_EXTENSIONS):
                 continue
 
             if file.split(".")[-1] == "tex":
                 tex_files.append([dir_index, file])
-                shutil.copy(file_path, tmp_dir + "\\" + file)
+                shutil.copy(file_path, tmp_dir + "/" + file)
             else:
                 relations[dir_index].append(file)
-                shutil.copy(file_path, tmp_dir + "\\" + str(dir_index) + file)
+                shutil.copy(file_path, tmp_dir + "/" + str(dir_index) + file)
     return tex_files, relations, config
 
 
@@ -359,7 +359,7 @@ def modify_tex_documents(tmp_dir, tex_files, relations, is_english):
 
 
 def copy_style(tmp_dir, config):
-    new_dir = tmp_dir + "\\style.sty"
+    new_dir = tmp_dir + "/style.sty"
     shutil.copy(STYLE_DIR, new_dir)
     with open(new_dir, 'r', encoding='utf8') as file:
         content = file.read()
@@ -457,25 +457,25 @@ def create_main_tex(tmp_dir, tex_files, config, summaries):
     main_tex_content += "\\clearemptydoublepage\n"
     main_tex_content += "\n\\end{document}"
 
-    with open(tmp_dir + "\\main.tex", 'w+', encoding='utf8') as main_tex_file:
+    with open(tmp_dir + "/main.tex", 'w+', encoding='utf8') as main_tex_file:
         main_tex_file.write(main_tex_content)
 
 
 def compile_tex(tmp_dir):
     # latexmk compiles multiple times and all, so that's great
-    compile_cmd = ("latexmk \"" + tmp_dir + "\\main.tex\" " +
+    compile_cmd = ("latexmk \"" + tmp_dir + "/main.tex\" " +
                    "-output-directory=\"" + tmp_dir + "\" -pdf -halt-on-error")
     completed_process = subprocess.run(compile_cmd)
     return completed_process.returncode
 
 
 def move_result(tmp_dir, course_name):
-    shutil.copy(tmp_dir + "\\main.pdf", course_name + ".pdf")
+    shutil.copy(tmp_dir + "/main.pdf", course_name + ".pdf")
 
 
 def move_questions_if_any(tmp_dir, course_name):
     questions = []
-    with open(tmp_dir + "\\main.questions", encoding='utf8') as question_file:
+    with open(tmp_dir + "/main.questions", encoding='utf8') as question_file:
         for line in question_file.read().split("\n"):
             pattern = r"\\contentsline(?: )?\{.*\}\{(.*)\}\{.*\}\{.*\}"
             quest = re.search(pattern, line)
@@ -525,7 +525,7 @@ def _compile_course(course_name, tmp_dir):
 
 def compile_course(course_name, use_temp_folder):
     if use_temp_folder:
-        tmp_dir = r"G:\Mon Drive\Ecole\Université-EPFL\BA1\NotesCours\temp"
+        tmp_dir = r"temp"
         _compile_course(course_name, tmp_dir)
     else:
         with tempfile.TemporaryDirectory() as tmp_dir:
