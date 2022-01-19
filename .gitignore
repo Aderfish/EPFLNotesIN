@@ -10,6 +10,7 @@ lecture*.pdf
 !*.tex
 !*.json
 !*.png
+!*.jpg
 !*.sty
 !*.txt
 !*.py
