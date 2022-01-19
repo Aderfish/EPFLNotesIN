@@ -302,7 +302,7 @@ def modify_tex_documents(tmp_dir, tex_files, relations, is_english):
     sorted_summaries = [[]]*len(tex_files)
     sorted_tex_files = [[]]*len(tex_files)
     for relation_index, tex_file in tex_files:
-        file_path = tmp_dir + "\\" + tex_file
+        file_path = tmp_dir + "/" + tex_file
         with open(file_path, 'r', encoding='utf8') as latex_document:
             content = latex_document.read()
 
