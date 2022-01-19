@@ -465,7 +465,7 @@ def compile_tex(tmp_dir):
     # latexmk compiles multiple times and all, so that's great
     compile_cmd = ("latexmk \"" + tmp_dir + "/main.tex\" " +
                    "-output-directory=\"" + tmp_dir + "\" -pdf -halt-on-error")
-    completed_process = subprocess.run(compile_cmd)
+    completed_process = subprocess.run(compile_cmd, shell=True)
     return completed_process.returncode
 
 
