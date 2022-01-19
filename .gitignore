@@ -4,6 +4,9 @@
 !.gitignore
 !README.md
 
+!*.pdf
+lecture*.pdf
+
 !*.tex
 !*.json
 !*.png
@@ -12,6 +15,7 @@
 !*.py
 *_questions.txt
 GuideSécuritéIT.pdf
+horaire.pdf
 
 # BA1
 BA1/horaire.pdf
@@ -24,6 +28,8 @@ BA1/NotesCours/PhysiqueGenerale.pdf
 BA1/NotesCours/IntroProgrammation/
 BA1/NotesCours/IntroProgrammation.pdf
 BA1/NotesCours/temp
+BA1/*/*/*/Dependencies/*.pdf
+BA1/*/Printed
 
 !AICC-1.pdf
 !Analyse-1.pdf
